@@ -1,0 +1,56 @@
+{% extends 'myadmin/common/layout.html'%}
+
+{% block content %}
+{{subid}}
+<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">Edit SubCategory</h1>
+
+					<div class="row">
+						
+						<div class="col-12 col-xl-12">
+							<div class="card">
+								<div class="card-header">
+									
+								</div>
+								<div class="card-body">
+									<form method="post" action="/myadmin/update_subcat/{{row.id}}">
+										{% csrf_token %}
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">Enter SubCategory Name</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" placeholder="Category Name.." name="subcat_name" value="{{row.subcat_name}}">
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">Category</label>
+											<div class="col-sm-9">
+											
+												<select  name="category" class="form-control" >
+												{% for cat in result %}
+													<option value="{{cat.id}}"
+									{% if cat.id == row.category.id %} selected {% endif %} >{{cat.cat_name}}</option>
+													
+												{% endfor %}
+											</select>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<div class="col-sm-9 ml-sm-auto">
+												<button type="submit" class="btn btn-primary">Update SubCategory</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+						
+
+						
+					</div>
+
+				</div>
+			</main>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'myadmin/common/layout.html'%}
+
+{% block content %}
+
+<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">Add Category</h1>
+
+					<div class="row">
+						
+						<div class="col-12 col-xl-12">
+							<div class="card">
+								<div class="card-header">
+									
+								</div>
+								<div class="card-body">
+									<form method="post">
+										{% csrf_token %}
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">Enter Category Name</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" placeholder="Category Name.." name="cat_name" required="" pattern="[a-zA-Z]{5,20}" title="Category Name Must be Valid"> <span> (Only Charecters Allowed 5-20)</span>
+											</div>
+										</div>
+										
+										<div class="mb-3 row">
+											<div class="col-sm-9 ml-sm-auto">
+												<button type="submit" class="btn btn-primary">Add Category</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+						
+
+						
+					</div>
+
+				</div>
+			</main>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'myadmin/common/layout.html'%}
+
+{% block content %}
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">All Innovators</h1>
+
+					<div class="row">
+						<div class="col-12 col-xl-12">
+							<div class="card">
+								
+								<table class="table">
+									<thead>
+										<tr>
+											<th style="width:10%;">Userid</th>
+											<th style="width:25%">FullName</th>
+											<th style="width:25%">Email id</th>
+											<th style="width:25%">Contact no</th>
+											<th style="width:25%">State</th>
+											<th style="width:25%">City</th>
+											
+											
+											
+										</tr>
+									</thead>
+									<tbody>
+										{% for row in result %}
+										<tr>
+											<td>{{row.user.id}}</td>
+											<td>{{row.user.first_name}} {{row.user.last_name}}</td>
+											<td>{{row.user.email}}</td>
+											<td>{{row.contact}}</td>
+											
+											<td>{{row.state}}</td>
+											<td>{{row.city}}</td>
+											
+										{% endfor %}
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+					</div>
+
+				</div>
+			</main>
+{% endblock %}

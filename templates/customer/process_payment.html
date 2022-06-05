@@ -1,0 +1,76 @@
+{% extends 'customer/inc/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="unit-5 oveDatabaseErrorrlay" style="background-image: url({% static 'images/hero_bg_2.jpg' %}); "  >
+      <div class="container text-center">
+        <h2 class="mb-0">Make Payment Using Razorpay</h2>
+        <p class="mb-0 unit-6"><a href="index.html">Home</a> <span class="sep">></span> <span>Sign Up</span></p>
+      </div>
+    </div>
+
+    <div class="site-section bg-light">
+      <div class="container">
+        {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+        <div class="row">
+       
+          <div class="col-md-12 col-lg-8 mb-5">
+          
+    <form class="text-center border border-light p-5" action="/customer/success" method="POST">
+        {% csrf_token %}
+
+       
+      
+
+        <!-- RAZORPAY INTEGRATION HERE -->
+        <script src="https://checkout.razorpay.com/v1/checkout.js" 
+        data-key="rzp_test_PvM4GxK9MYlCUc" 
+        data-amount="{{payment.amount}}"
+        data-currency="INR" 
+        data-order_id="{{payment.id}}" 
+        data-buttontext="Pay with Razorpay"
+        data-name="Online Innovators and Business Portal"
+        data-description="Complete Business Solution"
+        data-image="https://oibp1.000webhostapp.com/logo.PNG" 
+        data-prefill.name="{{request.user.first_name}}"
+        data-prefill.email="{{request.user.email}}" 
+        data-theme.color="#F37254"></script>
+
+    </form>
+           
+          </div>
+           <div class="col-lg-4">
+            <div class="p-4 mb-3 bg-white">
+              <h3 class="h5 text-black mb-3">Contact Info</h3>
+              <p class="mb-0 font-weight-bold">Address</p>
+              <p class="mb-4">602, Kaivanna Complex Near Centrall Mall,
+                Panchvati, Ambawadi.Elisbdrige -380006</p>
+
+              <p class="mb-0 font-weight-bold">Phone</p>
+              <p class="mb-4"><a href="#">+91 9016 6474 80</a></p>
+
+              <p class="mb-0 font-weight-bold">Email Address</p>
+              <p class="mb-0"><a href="#">praxware@gmail.com</a></p>
+
+            </div>
+            
+            <div class="p-4 mb-3 bg-white">
+              <h3 class="h5 text-black mb-3">More Info</h3>
+              <p>Drop your Query Here to get Solution</p>
+              
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'innovator/common/layout.html'%}
+
+{% block content %}
+
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">All Orders</h1>
+
+					<div class="row">
+						<div class="col-12 col-xl-12">
+							<div class="card">
+								
+								<table class="table">
+									<thead>
+										<tr>
+											<th style="width:10%;">OrderId</th>
+											<th style="width:25%">Date</th>
+											<th style="width:25%">CustomerId</th>
+											<th style="width:25%">Idea</th>
+											<th style="width:25%">Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for row in result %}
+										<tr>
+											<td>{{row.id}}</td>
+											<td>{{row.date}}</td>
+											<td>{{row.user}}</td>
+											<td>{{row.idea}}</td>
+											<td>Paid</td>
+											
+										</tr>
+										{% endfor %}
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+					</div>
+
+				</div>
+			</main>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'innovator/common/layout.html'%}
+
+{% block content %}
+
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">All Ideas</h1>
+
+					<div class="row">
+						<div class="col-12 col-xl-12">
+							<div class="card">
+								
+								<table class="table">
+									<thead>
+										<tr>
+											<th style="width:40%;">Ideaid</th>
+											<th style="width:25%">Title</th>
+											<th style="width:25%">Description</th>
+											<th style="width:25%">Setup price</th>
+											<th style="width:25%">Setup duration</th>
+											<th style="width:25%">Category</th>
+											<th style="width:25%">Subcategory</th>
+											<th style="width:25%">Status</th>
+											<th style="width:25%">Active</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+										{% for row in result %}
+										<tr>
+											<td>{{row.id}}</td>
+											<td>{{row.title}}</td>
+											<td>{{row.small_description}}</td>
+											
+											<td>{{row.setup_price}}</td>
+											<td>{{row.setup_duration}}</td>
+											<td>{{row.category}}</td>
+											<td>{{row.subcategory}}</td>
+											<td>{{row.status}}</td>
+											
+											<td class="table-action">
+												<a href="/myadmin/edit_subcat/{{row.id}}"><i class="align-middle" data-feather="edit-2">Edit</i></a>
+												<a href="/innovator/delete_idea/{{row.id}}"><i class="align-middle" data-feather="trash">Delete</i></a>
+											</td>
+										</tr>
+										{% endfor %}
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+					</div>
+
+				</div>
+			</main>
+{% endblock %}

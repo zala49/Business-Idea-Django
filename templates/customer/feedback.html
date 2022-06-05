@@ -1,0 +1,72 @@
+{% extends 'customer/inc/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="unit-5 overlay" style="background-image: url({% static 'customer/images/hero_bg_2.jpg' %}); "  >
+      <div class="container text-center">
+        <h2 class="mb-0">Feedback</h2>
+        <p class="mb-0 unit-6"><a href="index.html">Home</a> <span class="sep">></span> <span>Fedback</span></p>
+      </div>
+    </div>
+
+    <div class="site-section bg-light">
+      <div class="container">
+         {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+        <div class="row">
+        <div class="col-lg-2">
+                        
+          </div>
+          <div class="col-md-12 col-lg-8 mb-5">
+         <!--  {{ form.errors }}
+{{ form.non_field_errors }} -->
+            
+          
+            <form action="/customer/feedback" class="p-5 bg-white" method="post">
+              {% csrf_token %}
+                 <div class="row form-group">
+                <div class="col-md-12">
+                  <label class="font-weight-bold" for="message">Give Your Rating</label> 
+                   <select id="rating_id" name="rating" class="form-control">
+                     <option value="1">One Star</option>
+                     <option value="2">Two Star</option>
+                     <option value="3">Three Star</option>
+                     <option value="4">Four Star</option>
+                     <option value="5">Five Star</option>
+                   </select>
+                   {{form.rating.errors}}
+                </div>
+              </div>
+             
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <label class="font-weight-bold" for="message">Post Your Comment Here..</label> 
+                  <textarea name="message" id="message" name="message" cols="30" rows="5" class="form-control" placeholder="Post Your Valuabale Feedback" required="" minlength="10" title="Minimum 10 Characters Required.."></textarea>
+                        <span style="color: blue">Required*</span> {{form.message.errors}}
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" value="Post Feedback" class="btn btn-primary  py-2 px-4">
+                </div>
+              </div>
+
+  
+            </form>
+          </div>
+
+          <div class="col-lg-2">
+                        
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

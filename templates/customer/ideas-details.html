@@ -1,0 +1,57 @@
+{% extends 'customer/inc/base.html' %}
+{% block title %}
+ Search Business Ideas
+{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+    <div class="unit-5 overlay" style="background-image: url({% static 'customer/images/hero_bg_2.jpg' %}); ">
+      <div class="container text-center">
+        <h2 class="mb-0">Busimess Ideas</h2>
+        <p class="mb-0 unit-6"><a href="index.html">Home</a> <span class="sep">></span> <span>Business Idea</span></p>
+      </div>
+    </div>
+
+    <div class="site-section bg-light">
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-2"></div>
+       
+          <div class="col-md-12 col-lg-8 mb-5">
+            <div class="p-5 bg-white">
+
+              <div class="mb-4 mb-md-5 mr-5">
+               <div class="job-post-item-header d-flex align-items-center">
+                 <h2 class="mr-3 text-black h4">{{idea.title}}</h2>
+                 <div class="badge-wrap">
+                  <span class="bg-danger text-white badge py-2 px-4">Innovator</span>
+                 </div>
+               </div>
+               <div class="job-post-item-body d-block d-md-flex">
+                
+                 <div><span class="fl-bigmug-line-big104"></span> <span>{{idea.user.innovatorprofile.city}}, {{idea.user.innovatorprofile.state}}</span></div>
+               </div>
+              </div>
+              
+              <p style="text-align: justify;">{{idea.large_description}}</p>
+              <p style="text-align: justify;color: green"><strong>Setup Estimated Time : </strong>{{idea.setup_duration}}</p>
+              <p style="text-align: justify; color: red;"><strong>Setup Estimated Costing : </strong>{{idea.setup_price}}</p>
+
+              <p>
+                <a href="/media/{{idea.pdf}}"><strong>View Idea Related Document</strong></a>
+              </p>
+              {% if user.is_authenticated %}
+              <p class="mt-5"><a href="/customer/add_to_cart/{{idea.id}}" class="btn btn-primary  py-2 px-4">Purchase Buusiness Setup</a></p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

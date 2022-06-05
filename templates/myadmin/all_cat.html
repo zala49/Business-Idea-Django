@@ -1,0 +1,47 @@
+{% extends 'myadmin/common/layout.html'%}
+
+{% block content %}
+
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">All Categories</h1>
+
+					<div class="row">
+						<div class="col-12 col-xl-12">
+							<div class="card">
+								
+								<table class="table">
+									<thead>
+										<tr>
+											<th style="width:40%;">CategoryId</th>
+											<th style="width:25%">Category Name</th>
+											
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for row in result %}
+										<tr>
+											<td>{{row.id}}</td>
+											<td>{{row.cat_name}}</td>
+											
+											<td class="table-action">
+												<a href="/myadmin/edit_cat/{{row.id}}"><i class="align-middle" data-feather="edit-2">Edit</i></a>
+												<a href="/myadmin/delete_cat/{{row.id}}"><i class="align-middle" data-feather="trash">Delete</i></a>
+											</td>
+										</tr>
+										{% endfor %}
+										
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+					</div>
+
+				</div>
+			</main>
+{% endblock %}

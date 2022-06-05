@@ -1,0 +1,254 @@
+{% extends 'innovator/common/layout.html'%}
+
+{% load static %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+$("#state").change(function () {
+      state_id = $("#state").val();
+
+      $.ajax({
+             type:"POST",
+             url:"get_cities",
+             data: {
+                       "state_id" :state_id,
+                       'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                   },
+             dataType: 'json',
+             success:function(response)
+             {
+                var len = response.length;
+                $("#city").empty();
+                for( var i = 0; i<len; i++)
+                {
+                    var id = response[i]['pk'];
+                    var name = response[i]['fields']['city_name'];
+                    $("#city").append("<option value='"+id+"'>"+name+"</option>")
+                }
+             }
+
+      }); 
+    });
+
+    $('#im').click(function(e)
+    {
+        e.preventDefault () ;
+        $("#profile_photo").click();
+
+         $("#profile_photo").change(function(){
+            
+             formdata = new FormData();
+            if($(this).prop('files').length > 0)
+            {
+                file =$(this).prop('files')[0];
+                formdata.append("profile_photo", file);
+            }
+
+           var token = '{{csrf_token}}';
+
+            jQuery.ajax({
+                          headers: { "X-CSRFToken": token },
+                          url: '/innovator/upload_profile_pic',
+                          type: "POST",
+                          data: formdata,
+                          processData: false,
+                          contentType: false,
+                          success: function (result) 
+                          {
+                              if(result.error==false)
+                              {
+                                  var pro = '/media/profiles/'+result.image;
+                                  $('#profile').attr('src', pro); 
+
+                              }
+                              
+                          }
+                    });
+        });
+    });
+    </script>
+{% endblock %}
+{% block content %}
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">Edit Profile</h1>
+
+					<div class="row">
+						<div class="col-md-4 col-xl-3">
+							<div class="card mb-3">
+								<div class="card-header">
+									<h5 class="card-title mb-0">My Profile</h5>
+								</div>
+								<div class="card-body text-center">
+									<!-- <img src="{% static 'myadmin/img/avatars/avatar-4.jpg' %}" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" /> -->
+
+									 
+                 <img src=" {% if p.profile_photo %}/media/{{p.profile_photo}}
+                 {% else %} {% static 'myadmin/img/user.jpg' %} {% endif%}" id="profile" class="img-fluid rounded-circle mb-2" width="178" height="178"  " >
+
+               
+               <a href="" id='im' style="position: relative;left:0px;bottom:10px;color: black" >&nbsp;Change Your Photo</a>
+
+               <input type="file" name="profile_photo" id="profile_photo" style="display: none">
+<br/>
+
+									<h5 class="card-title mb-0">{{u.first_name}} {{u.last_name}}</h5>
+									<div class="text-muted mb-2">( {{p.designation}} )</div>
+
+									<!-- <div>
+										<a class="btn btn-primary btn-sm" href="#">Follow</a>
+										<a class="btn btn-primary btn-sm" href="#"><span data-feather="message-square"></span> Message</a>
+									</div> -->
+								</div>
+								<hr class="my-0" />
+								<div class="card-body">
+								
+									<p>EmailId : {{u.email}}</p>
+									<p>Mobile : {{p.contact}}</p>
+								</div>
+								<hr class="my-0" />
+								<div class="card-body">
+									<h5 class="h6 card-title">About</h5>
+									<ul class="list-unstyled mb-0">
+										<li class="mb-1">
+											 <a href="#">{{p.state}}, {{p.city}}</a></li>
+
+										
+									</ul>
+								</div>
+								
+							</div>
+						</div>
+
+						<div class="col-md-8 col-xl-9">
+							<div class="card">
+								<div class="card-header">
+
+									<h5 class="card-title mb-0">Update Your Details Here!!</h5>
+								</div>
+								<div class="card-body h-100">
+
+									{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+									<form method="post" enctype="multipart/form-data">
+
+										{% csrf_token %}
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">First Name</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control"  name="fname" value="{{u.first_name}}">
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">LastName</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control"  name="lname" value="{{u.last_name}}">
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">Email</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control"  name="email" value="{{u.email}}">
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">Contact</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control"  name="contact" value="{{p.contact}}">
+											</div>
+										</div>
+
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">Designation</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control"  name="designation" value="{{p.designation}}">
+											</div>
+										</div>
+										
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">Experience</label>
+											<div class="col-sm-9">
+												
+
+												<select name="experience" id="experience" class="form-control">
+					                                <option value="1">1 Year</option>
+					                                <option value="2">2 Year</option>
+					                                <option value="3">3 Year</option>
+					                                <option value="4">4 Year</option>
+					                                <option value="5">5 Year</option>
+
+					                          </select>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">About you</label>
+											<div class="col-sm-9">
+												<textarea class="form-control"  rows="3" name="about">
+													{{p.about}}
+												</textarea>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">Address</label>
+											<div class="col-sm-9">
+												<textarea class="form-control"  rows="3" name="address">
+													{{p.address}}
+												</textarea>
+											</div>
+										</div>
+										
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">State</label>
+											<div class="col-sm-9">
+												
+
+												<select name="state" id="state" class="form-control">
+                            <option value="">Select States</option>
+                              {% for s in states %}
+                               <option value="{{s.id}}">{{s.state_name}}</option>
+                              {% endfor %}
+                          </select>
+											</div>
+										</div>
+										
+										<div class="mb-3 row">
+											<label class="col-form-label col-sm-3 text-sm-right">City</label>
+											<div class="col-sm-9">
+												
+
+												<select name="city" id="city" class="form-control">
+                            <option value="">Select City</option>
+                              {% for ct in cities %}
+                               <option value="{{ct.id}}">{{ct.city_name}}</option>
+                              {% endfor %}
+                          </select>
+											</div>
+										</div>
+										<div class="mb-3 row">
+											<div class="col-sm-9 ml-sm-auto">
+												<button type="submit" class="btn btn-primary">Update Profile</button>
+											</div>
+										</div>
+									</form>
+									
+									
+
+
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+{% endblock %}

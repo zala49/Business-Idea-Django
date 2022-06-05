@@ -1,0 +1,53 @@
+<header class="site-navbar py-1" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center">
+          
+          <div class="col-6 col-xl-2">
+            <h1 class="mb-0"><a href="index.html" class="text-black h2 mb-0">OIBP<strong></strong></a></h1>
+          </div>
+
+          <div class="col-10 col-xl-10 d-none d-xl-block">
+            <nav class="site-navigation text-right" role="navigation">
+
+              <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li class="active"><a href="/">Home{{media}}</a></li>
+                <li><a href="/customer/about">About</a></li>
+                
+
+               <!--  <li class="has-children">
+                  <a href="">Ideas</a>
+                  <ul class="dropdown">
+                    <li><a href="/innovator/add_idea">Uplode Ideas</a></li>
+                    <li><a href="/innovator/all_idea">My All Ideas</a></li>
+                    
+                  </ul>
+                </li> -->
+                
+                
+                <li><a href="/customer/contact">Contact</a></li>
+                <li><a href="/customer/ideas">Ideas</a></li>
+
+                <li><a href="/customer/signup">Register</a></li>
+
+                {% if user.is_authenticated %}
+                <li><a href="/customer/feedback">Post Feedback</a></li>
+                   <li><a href="/customer/logout"><span class="rounded bg-danger py-2 px-3 text-white"><span class="h5 mr-2">-Logout</a></li>
+                {% else %}
+                   <li><a href="/customer/login"><span class="rounded bg-primary py-2 px-3 text-white"><span class="h5 mr-2">+Login</a></li>
+                {% endif %}
+
+              </ul>
+            </nav>
+          </div>
+
+          <div class="col-6 col-xl-2 text-right d-block">
+            
+            <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+
+          </div>
+
+        </div>
+      </div>
+      
+    </header>

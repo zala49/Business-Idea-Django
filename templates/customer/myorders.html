@@ -1,0 +1,77 @@
+{% extends 'core/inc/base.html' %}
+{% block title %}
+ Search Business Ideas
+{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+    <div class="unit-5 overlay" style="background-image: url({% static 'images/hero_bg_2.jpg' %}); ">
+      <div class="container text-center">
+        <h2 class="mb-0">My Orders</h2>
+        <p class="mb-0 unit-6"><a href="index.html">Home</a> <span class="sep">></span> <span>My Orders</span></p>
+      </div>
+    </div>
+
+
+
+ <div class="site-section bg-light">
+      <div class="container">
+        <div class="row">
+
+       
+          <div class="col-md-12 col-lg-12 mb-5">
+          
+            <div class="span8">
+    <ul class="breadcrumb">
+    <li><span class="divider"></span></li>
+    <li class="active">My Orders</li>
+    </ul>
+            
+            <form method="post">
+  <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Serial</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Duration</th>
+                  <th>Amount</th>
+                 
+                  
+         </tr>
+              </thead>
+              <tbody>
+                 {% for idea_detail in order %}
+                         <tr>
+                            <td>{{idea_detail.idea_id}}</td>
+                            <td>{{idea_detail.title}}</td>
+                            <td>{{idea_detail.price}}</td>
+                            <td>{{idea_detail.duration}}</td>
+                            <td>{{idea_detail.price}}</td>
+                        </tr> 
+                  {% endfor %} 
+                    
+        </td>
+       
+          </tr>
+        
+                
+        </tbody>
+            </table>
+            
+           <br/><br/>
+          </div>
+
+         
+        </div>
+      </div>
+    </div>
+
+   
+    
+
+
+
+{% endblock %}
